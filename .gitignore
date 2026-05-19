@@ -1,0 +1,3 @@
+apps/backend/dist
+apps/backend/node_modules
+.env

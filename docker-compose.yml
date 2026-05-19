@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: email-agent-postgres
+
+    restart: always
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: email_agent
+
+    ports:
+      - '5432:5432'
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: 
+      context: ./apps/backend
+      dockerfile: Dockerfile
+
+    container_name: email-agent-backend
+
+    restart: always
+
+    depends_on:
+      - postgres
+
+    ports:
+      - '5000:5000'
+
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+    env_file:
+      - .env
+
+    command: npm run dev
+
+volumes:
+  postgres_data:
+
