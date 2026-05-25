@@ -1,3 +1,5 @@
 apps/backend/dist
 apps/backend/node_modules
 .env
+apps/backend/src/gmail.ts
+apps/backend/src/token.ts
